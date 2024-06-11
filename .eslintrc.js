@@ -5,5 +5,6 @@ module.exports = {
     'react-native/no-inline-styles': 'off',
     'react/self-closing-comp': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
+    'react-hooks/exhaustive-deps': 'off',
   },
 };
