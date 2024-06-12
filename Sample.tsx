@@ -1,142 +1,92 @@
-import React, {useEffect, useReducer, useRef} from 'react';
-import {Animated, Button, StyleSheet, Text, View} from 'react-native';
-interface BOXVIEWT {
-  bg: string;
-}
-
-const BoxView = (props: BOXVIEWT) => {
-  return (
-    <View
-      style={{
-        ...styles.box,
-        backgroundColor: props.bg,
-      }}
-    />
-  );
-};
+import React, {useEffect, useReducer, useRef, useState} from 'react';
+import {Animated, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 function Sample(): React.JSX.Element {
   const [toggle, setToggle] = useReducer(state => {
     return !state;
   }, false);
+  const [randomNumber, setRandomNumber] = useState(0);
+  const [time, setTime] = useState(5);
   const returnAni = useRef(new Animated.Value(0)).current;
-  const returnAni2 = useRef(new Animated.Value(0)).current;
 
-  const fadeIn = () => {
+  const touchStart = () => {
     Animated.timing(returnAni, {
-      toValue: 1,
-      duration: 3000,
+      toValue: 20,
+      duration: 4000,
       useNativeDriver: true,
-    }).start(() => {});
-    Animated.timing(returnAni2, {
-      toValue: 5,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start(() => {});
+    }).start(() => {
+      console.log('first');
+    });
   };
-  const fadeOut = () => {
+  const restStart = () => {
     Animated.timing(returnAni, {
-      toValue: 0.8,
-      duration: 8000,
-      useNativeDriver: true,
-    }).start();
-    Animated.timing(returnAni2, {
       toValue: 0,
-      duration: 1000,
+      duration: 100,
       useNativeDriver: true,
-    }).start(() => {});
+    }).start(() => {
+      console.log('reset');
+    });
   };
+  console.log(returnAni);
+  const gameFuc = () => {
+    if (time === 0 || time === 5) {
+      setToggle();
+      restStart();
+      if (time === 0) {
+        setTime(5);
+      }
+    }
+  };
+
   useEffect(() => {
-    if (toggle) return fadeIn();
-    else return fadeOut();
+    const timer = setTimeout(() => {
+      if (time !== 0 && toggle) {
+        setTime(el => el - 1);
+      }
+      if (time === -1) return () => clearTimeout(timer);
+    }, 100);
+  }, [time, toggle]);
+  useEffect(() => {
+    setRandomNumber(Math.floor(Math.random() * 9) + 1);
   }, [toggle]);
   return (
     <View style={styles.container}>
-      <View>
-        <Animated.View
-          style={[
-            styles.fadingContainer,
-            {
-              marginBottom: 0,
-              opacity: returnAni,
-              transform: [
-                {
-                  translateX: returnAni2.interpolate({
-                    // Value의 값이 0일때는 0, 1일때는 150
-                    inputRange: [0, 5],
-                    outputRange: [-270, 270],
-                  }),
-                },
-                {
-                  rotate: returnAni2.interpolate({
-                    // Value의 값이 0일때는 0, 1일때는 150
-                    inputRange: [0, 5],
-                    outputRange: [`0deg`, `360deg`],
-                  }),
-                },
-              ],
-            },
-          ]}></Animated.View>
-        <Animated.View
-          style={[
-            styles.fadingContainer2,
-            {
-              opacity: returnAni,
-              transform: [
-                {
-                  translateX: returnAni2.interpolate({
-                    // Value의 값이 0일때는 0, 1일때는 150
-                    inputRange: [0, 5],
-                    outputRange: [270, -270],
-                  }),
-                },
-                {
-                  rotate: returnAni2.interpolate({
-                    // Value의 값이 0일때는 0, 1일때는 150
-                    inputRange: [0, 5],
-                    outputRange: [`0deg`, `360deg`],
-                  }),
-                },
-              ],
-            },
-          ]}></Animated.View>
-        <Animated.View
-          style={[
-            styles.fadingContainer3,
-            {
-              opacity: returnAni,
-              transform: [
-                {
-                  translateX: returnAni2.interpolate({
-                    // Value의 값이 0일때는 0, 1일때는 150
-                    inputRange: [0, 5],
-                    outputRange: [-270, 270],
-                  }),
-                },
-                {
-                  rotate: returnAni2.interpolate({
-                    // Value의 값이 0일때는 0, 1일때는 150
-                    inputRange: [0, 5],
-                    outputRange: [`0deg`, `360deg`],
-                  }),
-                },
-              ],
-            },
-          ]}></Animated.View>
+      <View style={styles.boxContainer}>
+        {toggle ? (
+          time === 0 ? (
+            <Text>ㅅ</Text>
+          ) : (
+            <Text style={{...styles.textStyle}}>{time}</Text>
+          )
+        ) : (
+          <Text>test</Text>
+        )}
       </View>
-      <View style={styles.buttonRow}>
-        <Button title="미끄럼틀 버튼 갈겨!" onPress={setToggle} />
-      </View>
-
-      <View style={{flexDirection: 'row', gap: 40}}>
-        <View style={{display: 'flex', gap: 40}}>
-          <BoxView bg="red" />
-          <BoxView bg="orange" />
-        </View>
-        <View style={{display: 'flex', gap: 40}}>
-          <BoxView bg="blue" />
-          <BoxView bg="skyblue" />
-        </View>
+      <View style={{...styles.buttonContainer}}>
+        <TouchableOpacity
+          activeOpacity={1}
+          style={{
+            backgroundColor: 'white',
+            flexGrow: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={gameFuc}>
+          <Text
+            style={{
+              height: 36,
+              display: 'flex',
+              flexDirection: 'row',
+              color: 'black',
+              fontWeight: 600,
+              letterSpacing: 10,
+              fontSize: 24,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            {toggle ? '초기화' : '시작'}
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -145,36 +95,29 @@ function Sample(): React.JSX.Element {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-
     flex: 1,
-    justifyContent: 'center',
+    position: 'relative',
+  },
+  boxContainer: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'gray',
   },
-  box: {
-    width: 80,
-    height: 80,
-    borderRadius: 16,
-  },
-  fadingContainer: {
-    padding: 20,
-    backgroundColor: 'black',
+  ball: {
+    width: 50,
+    height: 50,
     borderRadius: 50,
   },
-  fadingContainer2: {
-    padding: 20,
-    backgroundColor: 'red',
-    borderRadius: 50,
+  textStyle: {
+    fontSize: 54,
+    color: 'black',
   },
-  fadingContainer3: {
-    padding: 20,
-    backgroundColor: 'blue',
-    borderRadius: 50,
-  },
-
-  buttonRow: {
-    flexBasis: 100,
-    justifyContent: 'space-evenly',
-    marginVertical: 16,
+  buttonContainer: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    maxHeight: 62,
   },
 });
 
