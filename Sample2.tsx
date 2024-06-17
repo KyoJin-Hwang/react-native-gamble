@@ -1,57 +1,124 @@
-import {View, StyleSheet, GestureResponderEvent} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  GestureResponderEvent,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import TouchAnimation from './src/components/TouchAnimation';
+
 interface HANDT {
+  idx: number;
   x: number;
   y: number;
 }
 
 const Sample2 = () => {
-  const [selectX, setSelectX] = useState(0);
-  const [selectY, setSelectY] = useState(0);
-  const [hand, setHand] = useState(1);
   const [handArray, setHandArray] = useState<HANDT[]>([]);
-  const numberOfTouches = useRef(0);
-  const handlePress = (event: GestureResponderEvent) => {
-    const {locationX, locationY, pageX, pageY} = event.nativeEvent;
+  const [isCount, setIsCount] = useState(0);
+  const [isFinal, setIsFinal] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-    setSelectX(Math.floor(pageX - 50));
-    setSelectY(Math.floor(pageY - 50));
-  };
   const selectHand = (event: GestureResponderEvent) => {
-    const {pageX, pageY} = event.nativeEvent;
+    const {touches} = event.nativeEvent;
 
-    setHand(hand + 1);
-    let arr = Array.from(Array(hand)).map((result, i) => {
-      return {x: Math.floor(pageX), y: Math.floor(pageY), idx: i};
-    });
-    console.log(arr);
+    const touchList = touches.map(data => ({
+      idx: +data.identifier,
+      x: data.pageX - 50,
+      y: data.pageY - 50,
+    }));
+
+    if (!isFinal) {
+      setHandArray(touchList);
+    }
   };
-  const unSelectHand = () => {
-    setHand(hand - 1);
+
+  const restartButton = () => {
+    setIsFinal(false);
+    setHandArray([]);
   };
+
   useEffect(() => {
-    console.log(hand);
-  }, [hand]);
+    if (handArray.length !== isCount && handArray.length >= 2) {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      timeoutRef.current = setTimeout(() => {
+        const endPoint = handArray.filter((data, idx) => {
+          if (data.idx === Math.floor(Math.random() * idx)) {
+            setIsFinal(true);
+            return true;
+          } else {
+            return false;
+          }
+        });
+        setHandArray(endPoint);
+      }, 3000);
+    }
+    setIsCount(handArray.length);
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [handArray]);
 
   return (
     <View
       style={styles.container}
-      //   onTouchMove={handlePress}
       onTouchStart={selectHand}
-      onTouchEnd={unSelectHand}
+      onTouchEnd={selectHand}
       onStartShouldSetResponder={() => true}>
-      {Array.from(Array(1)).map((el, idx) => {
-        return <TouchAnimation key={idx} x={selectY} y={selectX} />;
-      })}
+      {!isFinal ? (
+        handArray.length >= 1 ? null : (
+          <View style={styles.textBox}>
+            <Text style={styles.text}>손가락을 3초동안 누르면</Text>
+            <Text style={styles.text}>시작됩니다.</Text>
+          </View>
+        )
+      ) : (
+        <View style={styles.textBox}>
+          <TouchableOpacity onPress={restartButton}>
+            <Text style={styles.text2}>재시작</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      {handArray.map(el => (
+        <TouchAnimation key={el.idx} final={isFinal} x={el.y} y={el.x} />
+      ))}
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
     gap: 50,
   },
+  textBox: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'black',
+  },
+  text2: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8,
+    borderWidth: 1,
+    padding: 16,
+    backgroundColor: 'rgba(9, 130, 170, 1)',
+  },
 });
+
 export default Sample2;

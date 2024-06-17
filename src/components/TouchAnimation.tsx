@@ -4,6 +4,7 @@ import {Animated, Easing, StyleSheet, View} from 'react-native';
 interface AREA {
   x: number;
   y: number;
+  final: boolean;
 }
 
 function TouchAnimation(props: AREA) {
@@ -22,11 +23,13 @@ function TouchAnimation(props: AREA) {
       ]),
     ).start();
   }, []);
-
+  useEffect(() => {
+    if (props.final) {
+      setTouchEvent(true);
+    }
+  }, [props]);
   return (
     <View
-      onTouchStart={() => setTouchEvent(!touchEvent)}
-      onTouchEnd={() => setTouchEvent(!touchEvent)}
       style={[
         touchEvent
           ? {...styles.pointBackgroundActivate, top: props.x, left: props.y}
@@ -44,6 +47,12 @@ function TouchAnimation(props: AREA) {
                 }),
               },
             ],
+            opacity: !touchEvent
+              ? 1
+              : rotateValue.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0.3, 1],
+                }),
           },
         ]}
       />
@@ -53,25 +62,25 @@ function TouchAnimation(props: AREA) {
 
 const styles = StyleSheet.create({
   circle: {
-    backgroundColor: 'aqua',
+    backgroundColor: 'black',
     borderRadius: 80,
     width: 80,
     height: 80,
     padding: 16,
     borderWidth: 8,
     borderStyle: 'solid',
-    borderEndColor: 'black',
-    borderBlockColor: 'red',
-    opacity: 0.5,
+    borderEndColor: 'rgba(9, 130, 170, 1)',
+    borderBlockColor: 'rgba(40, 40, 40, 1)',
     position: 'relative',
   },
   pointBackgroundActivate: {
     padding: 8,
     borderRadius: 88,
     borderStyle: 'solid',
-    borderColor: 'rgba(255,0,0,0.3)',
+    borderColor: 'rgba(10, 130, 170, 0.5)',
     borderWidth: 4,
     maxWidth: 104,
+    position: 'absolute',
   },
   pointBackgroundDeactivate: {
     padding: 8,
@@ -79,6 +88,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderColor: 'white',
     borderWidth: 4,
+    position: 'absolute',
   },
 });
 
