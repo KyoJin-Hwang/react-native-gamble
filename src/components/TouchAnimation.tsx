@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderEndColor: 'rgba(9, 130, 170, 1)',
     borderBlockColor: 'rgba(40, 40, 40, 1)',
-    position: 'relative',
+    position: 'absolute',
   },
   pointBackgroundActivate: {
     padding: 8,
