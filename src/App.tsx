@@ -1,6 +1,6 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
-import FingerPage from './views/Sample2';
+import FingerPage from './views/FingerPage/index';
 
 function App(): React.JSX.Element {
   return (
