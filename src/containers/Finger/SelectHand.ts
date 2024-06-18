@@ -1,15 +1,10 @@
+import {HANDT} from '@/types/Finger/finger-type';
 import {GestureResponderEvent} from 'react-native';
 
 interface PROPS {
   event: GestureResponderEvent;
   setData: React.Dispatch<React.SetStateAction<HANDT[]>>;
   isFinal: boolean;
-}
-
-interface HANDT {
-  idx: number;
-  x: number;
-  y: number;
 }
 
 const SelectHand = (props: PROPS) => {

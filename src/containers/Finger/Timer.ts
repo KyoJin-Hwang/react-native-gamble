@@ -1,15 +1,11 @@
+import {HANDT} from '@/types/Finger/finger-type';
+
 interface PROPS {
   handArray: HANDT[];
   timeoutRef: React.MutableRefObject<NodeJS.Timeout | null>;
   isCount: number;
   setIsFinal: React.Dispatch<React.SetStateAction<boolean>>;
   setHandArray: React.Dispatch<React.SetStateAction<HANDT[]>>;
-}
-
-interface HANDT {
-  idx: number;
-  x: number;
-  y: number;
 }
 
 const TimingCatch = (props: PROPS) => {
