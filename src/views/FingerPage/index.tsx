@@ -6,7 +6,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import TouchAnimation from '../components/TouchAnimation';
+import TouchAnimation from '../../components/TouchAnimation';
 
 interface HANDT {
   idx: number;
