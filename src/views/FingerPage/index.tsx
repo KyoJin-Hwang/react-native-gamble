@@ -1,3 +1,4 @@
+import TouchAnimation from '@/components/TouchAnimation';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
@@ -6,7 +7,6 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import TouchAnimation from '../../components/TouchAnimation';
 
 interface HANDT {
   idx: number;
