@@ -6,7 +6,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import TouchAnimation from './src/components/TouchAnimation';
+import TouchAnimation from '../components/TouchAnimation';
 
 interface HANDT {
   idx: number;
@@ -14,7 +14,7 @@ interface HANDT {
   y: number;
 }
 
-const Sample2 = () => {
+const FingerPage = () => {
   const [handArray, setHandArray] = useState<HANDT[]>([]);
   const [isCount, setIsCount] = useState(0);
   const [isFinal, setIsFinal] = useState(false);
@@ -121,4 +121,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Sample2;
+export default FingerPage;
