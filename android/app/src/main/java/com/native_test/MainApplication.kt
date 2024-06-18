@@ -1,4 +1,4 @@
-package com.native_test
+package com.negy
 
 import android.app.Application
 import com.facebook.react.PackageList

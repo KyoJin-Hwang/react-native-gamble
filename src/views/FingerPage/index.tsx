@@ -1,12 +1,8 @@
-import TouchAnimation from '@/components/TouchAnimation';
+import TouchAnimation from '../../components/TouchAnimation';
+import SelectHand from '../../containers/Finger/SelectHand';
+import TimingCatch from '../../containers/Finger/Timer';
 import React, {useEffect, useRef, useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  GestureResponderEvent,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 interface HANDT {
   idx: number;
@@ -20,43 +16,20 @@ const FingerPage = () => {
   const [isFinal, setIsFinal] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const selectHand = (event: GestureResponderEvent) => {
-    const {touches} = event.nativeEvent;
-
-    const touchList = touches.map(data => ({
-      idx: +data.identifier,
-      x: data.pageX - 50,
-      y: data.pageY - 50,
-    }));
-
-    if (!isFinal) {
-      setHandArray(touchList);
-    }
-  };
-
   const restartButton = () => {
     setIsFinal(false);
     setHandArray([]);
   };
 
   useEffect(() => {
-    if (handArray.length !== isCount && handArray.length >= 2) {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
+    TimingCatch({
+      handArray: handArray,
+      timeoutRef: timeoutRef,
+      isCount: isCount,
+      setIsFinal: setIsFinal,
+      setHandArray: setHandArray,
+    });
 
-      timeoutRef.current = setTimeout(() => {
-        const endPoint = handArray.filter((data, idx) => {
-          if (data.idx === Math.floor(Math.random() * idx)) {
-            setIsFinal(true);
-            return true;
-          } else {
-            return false;
-          }
-        });
-        setHandArray(endPoint);
-      }, 3000);
-    }
     setIsCount(handArray.length);
 
     return () => {
@@ -69,8 +42,12 @@ const FingerPage = () => {
   return (
     <View
       style={styles.container}
-      onTouchStart={selectHand}
-      onTouchEnd={selectHand}
+      onTouchStart={e =>
+        SelectHand({event: e, setData: setHandArray, isFinal: isFinal})
+      }
+      onTouchEnd={e =>
+        SelectHand({event: e, setData: setHandArray, isFinal: isFinal})
+      }
       onStartShouldSetResponder={() => true}>
       {!isFinal ? (
         handArray.length >= 1 ? null : (

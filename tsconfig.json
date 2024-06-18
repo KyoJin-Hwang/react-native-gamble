@@ -6,10 +6,10 @@
     "types": [],
     "paths": {
       "@/*": ["./*"],
-      "@/assets/*": ["assets/*"],
-      "@/components/*": ["components/*"],
-      "@/containers/*": ["containers/*"],
-      "@/views/*": ["views/*"]
+      "@/assets/*": ["assets/*", "assets"],
+      "@/components/*": ["components/*", "components"],
+      "@/containers/*": ["containers/*", "containers"],
+      "@/views/*": ["views/*", "views"]
     }
   }
 }
