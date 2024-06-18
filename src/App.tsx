@@ -1,13 +1,11 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
-
-import Sample from './Sample';
-import Sample2 from './Sample2';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import FingerPage from './views/Sample2';
 
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={styles.backgroundStyle}>
-      <Sample2 />
+      <FingerPage />
     </SafeAreaView>
   );
 }
