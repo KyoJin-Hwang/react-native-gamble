@@ -6,5 +6,6 @@ module.exports = {
     'react/self-closing-comp': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
     'react-hooks/exhaustive-deps': 'off',
+    'prettier/prettier': 'off',
   },
 };

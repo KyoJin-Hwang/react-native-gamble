@@ -11,6 +11,8 @@ const FingerPage = () => {
   const [isFinal, setIsFinal] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  console.log('test');
+
   useEffect(() => {
     TimingCatch({
       handArray: handArray,
