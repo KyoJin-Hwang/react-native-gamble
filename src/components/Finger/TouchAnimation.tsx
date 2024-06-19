@@ -1,11 +1,6 @@
+import {AREA} from '@/types/Finger/finger-type';
 import React, {useEffect, useRef} from 'react';
 import {Animated, Easing, StyleSheet, View} from 'react-native';
-
-interface AREA {
-  x: number;
-  y: number;
-  final: boolean;
-}
 
 function TouchAnimation(props: AREA) {
   const rotateValue = useRef(new Animated.Value(0)).current;
@@ -28,6 +23,7 @@ function TouchAnimation(props: AREA) {
       setTouchEvent(true);
     }
   }, [props]);
+
   return (
     <View
       style={[
@@ -71,7 +67,7 @@ const styles = StyleSheet.create({
     borderStyle: 'solid',
     borderEndColor: 'rgba(9, 130, 170, 1)',
     borderBlockColor: 'rgba(40, 40, 40, 1)',
-    position: 'absolute',
+    position: 'relative',
   },
   pointBackgroundActivate: {
     padding: 8,
