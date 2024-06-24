@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
   circle: {
     backgroundColor: 'black',
     borderRadius: 80,
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     padding: 16,
     borderWidth: 8,
     borderStyle: 'solid',
@@ -71,19 +71,14 @@ const styles = StyleSheet.create({
   },
   pointBackgroundActivate: {
     padding: 8,
-    borderRadius: 88,
+    borderRadius: 100,
     borderStyle: 'solid',
     borderColor: 'rgba(10, 130, 170, 0.5)',
     borderWidth: 4,
-    maxWidth: 104,
+    maxWidth: 140,
     position: 'absolute',
   },
   pointBackgroundDeactivate: {
-    padding: 8,
-    borderRadius: 88,
-    borderStyle: 'solid',
-    borderColor: 'white',
-    borderWidth: 4,
     position: 'absolute',
   },
 });

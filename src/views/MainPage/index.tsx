@@ -1,3 +1,4 @@
+import Button from '@/components/Main/Button';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React from 'react';
@@ -13,7 +14,7 @@ function MainPage() {
         navigation.push('Finger', {state: 1});
       }}>
       <Text style={styles.textDefault}>Main</Text>
-      <Text style={styles.textDefault2}>Main2</Text>
+      <Button text="ㅋ" fuc={() => console.log(1)} />
     </View>
   );
 }
@@ -25,9 +26,9 @@ const styles = StyleSheet.create({
     gap: 50,
   },
   textDefault: {
-    fontFamily: 'MangoDdobak-B',
+    fontFamily: '',
     color: 'black',
-    fontSize: 34,
+    fontSize: 84,
   },
   textDefault2: {
     color: 'black',
