@@ -12,7 +12,8 @@ function MainPage() {
       onTouchEnd={() => {
         navigation.push('Finger', {state: 1});
       }}>
-      <Text>Main</Text>
+      <Text style={styles.fontTest}>Main2</Text>
+      <Text style={styles.fontTest2}>Main2</Text>
     </View>
   );
 }
@@ -22,6 +23,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     gap: 50,
+  },
+  fontTest: {
+    fontFamily: 'Pretendard-Black',
+    fontSize: 52,
+  },
+  fontTest2: {
+    fontFamily: 'Pretendard-Thin',
+    fontSize: 52,
   },
 });
 
