@@ -45,6 +45,16 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 34,
   },
+  fontTest: {
+    fontFamily: 'Pretendard-Black',
+    color: 'black',
+    fontSize: 52,
+  },
+  fontTest2: {
+    fontFamily: 'Pretendard-Thin',
+    color: 'black',
+    fontSize: 52,
+  },
 });
 
 export default MainPage;
