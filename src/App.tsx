@@ -14,7 +14,7 @@ function App(): React.JSX.Element {
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="MainPage"
-          screenOptions={{headerShown: true}}>
+          screenOptions={{headerShown: false}}>
           <Stack.Screen name="Finger" component={FingerPage} />
           <Stack.Screen name="MainPage" component={MainPage} />
         </Stack.Navigator>

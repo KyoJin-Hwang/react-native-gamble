@@ -12,7 +12,8 @@ function MainPage() {
       onTouchEnd={() => {
         navigation.push('Finger', {state: 1});
       }}>
-      <Text>Main</Text>
+      <Text style={styles.textDefault}>Main</Text>
+      <Text style={styles.textDefault2}>Main2</Text>
     </View>
   );
 }
@@ -22,6 +23,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     gap: 50,
+  },
+  textDefault: {
+    fontFamily: 'MangoDdobak-B',
+    color: 'black',
+    fontSize: 34,
+  },
+  textDefault2: {
+    color: 'black',
+    fontSize: 34,
   },
 });
 
