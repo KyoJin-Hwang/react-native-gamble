@@ -46,9 +46,9 @@ const FingerPage = () => {
       onTouchEnd={e =>
         SelectHand({event: e, setData: setHandArray, isFinal: isFinal})
       }
-      // onTouchMove={() => {
-      //   navigation.replace('MainPage', {state: 2});
-      // }}
+      onTouchMove={() => {
+        navigation.replace('MainPage', {state: 2});
+      }}
       onStartShouldSetResponder={() => true}>
       <FingerRunLevelComponents
         isFinal={isFinal}
