@@ -26,10 +26,12 @@ const styles = StyleSheet.create({
   },
   fontTest: {
     fontFamily: 'Pretendard-Black',
+    color: 'black',
     fontSize: 52,
   },
   fontTest2: {
     fontFamily: 'Pretendard-Thin',
+    color: 'black',
     fontSize: 52,
   },
 });
