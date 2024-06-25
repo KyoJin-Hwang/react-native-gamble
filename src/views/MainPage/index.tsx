@@ -6,8 +6,8 @@ import React, {useEffect, useRef, useState} from 'react';
 import {Animated, Easing, StyleSheet, Text, View} from 'react-native';
 
 const BUTTON_TYPE: MainButtonT[] = [
-  {idx: 1, title: '핑거 초이스 👇'},
-  {idx: 2, title: '개발 준비중 🚥'},
+  {idx: 1, title: '핑거 초이스 👇', page: 'Finger'},
+  {idx: 2, title: '폭탄 돌리기 💣', page: 'Boom'},
   {idx: 3, title: '개발 준비중 🚥'},
   {idx: 4, title: '개발 준비중 🚥'},
   {idx: 5, title: '개발 준비중 🚥'},
@@ -53,11 +53,7 @@ function MainPage() {
   }, [headerIconRef]);
 
   return (
-    <View
-      style={styles.container}
-      onTouchEnd={() => {
-        navigation.push('Finger', {state: 1});
-      }}>
+    <View style={styles.container}>
       <View
         style={{
           flexDirection: 'row',
@@ -77,7 +73,11 @@ function MainPage() {
       </View>
       <View style={styles.menuContainer}>
         {BUTTON_TYPE.map(item => (
-          <MenuButton key={item.idx} text={item.title} />
+          <MenuButton
+            key={item.idx}
+            text={item.title}
+            fuc={() => (item.page ? navigation.push(item.page) : null)}
+          />
         ))}
       </View>
       <View style={styles.textFooterContainer}>
@@ -111,8 +111,11 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   menuContainer: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'space-between',
     marginTop: 50,
-    gap: 26,
+    marginBottom: 150,
   },
   textFooter: {
     color: 'black',
