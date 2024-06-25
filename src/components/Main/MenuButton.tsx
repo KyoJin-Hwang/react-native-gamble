@@ -18,9 +18,7 @@ export default MenuButton;
 
 const styles = () => {
   return StyleSheet.create({
-    buttonContainer: {
-      marginTop: 30,
-    },
+    buttonContainer: {},
     button: {
       justifyContent: 'center',
       alignItems: 'center',
@@ -29,6 +27,7 @@ const styles = () => {
       backgroundColor: '#0064FF',
     },
     text: {
+      fontFamily: 'Pretendard-SemiBold',
       fontSize: 20,
       color: '#FFFFFF',
     },
