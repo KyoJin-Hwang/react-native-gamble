@@ -7,7 +7,7 @@ interface PROPS_BUTTON_T {
 const MenuButton = (props: PROPS_BUTTON_T) => {
   return (
     <View style={styles().buttonContainer}>
-      <TouchableOpacity style={styles().button}>
+      <TouchableOpacity style={styles().button} onPress={props.fuc}>
         <Text style={styles().text}>{props.text}</Text>
       </TouchableOpacity>
     </View>
