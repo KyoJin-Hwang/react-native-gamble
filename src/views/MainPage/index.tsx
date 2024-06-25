@@ -20,11 +20,17 @@ function MainPage() {
       onTouchEnd={() => {
         navigation.push('Finger', {state: 1});
       }}>
-      <Text style={styles.textHeader}>Main</Text>
+      <Text style={styles.textHeader}>내기의 기운 💣</Text>
       {BUTTON_TYPE.map(item => (
         <MenuButton key={item.idx} text={item.title} />
       ))}
-      {/* <Text style={styles.textFooter}>제작자 : Owen , kokong1231</Text> */}
+      <View style={styles.textFooterContainer}>
+        <Text style={styles.textFooter}>GitHub</Text>
+        <View style={styles.footerBox}>
+          <Text style={styles.textFooter}>Owen</Text>
+          <Text style={styles.textFooter}>kokong1231</Text>
+        </View>
+      </View>
     </View>
   );
 }
@@ -37,23 +43,25 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     color: 'black',
-    fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 64,
+    fontSize: 47,
+    fontFamily: 'Pretendard-Bold',
+  },
+  textFooterContainer: {
+    flex: 1,
+    position: 'absolute',
+    left: 20,
+    bottom: 20,
+    gap: 10,
   },
   textFooter: {
     color: 'black',
-    fontSize: 34,
+    fontSize: 24,
   },
-  fontTest: {
-    fontFamily: 'Pretendard-Black',
-    color: 'black',
-    fontSize: 52,
-  },
-  fontTest2: {
-    fontFamily: 'Pretendard-Thin',
-    color: 'black',
-    fontSize: 52,
+  footerBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 

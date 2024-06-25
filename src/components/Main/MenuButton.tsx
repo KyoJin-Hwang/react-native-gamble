@@ -29,6 +29,7 @@ const styles = () => {
       backgroundColor: '#0064FF',
     },
     text: {
+      fontFamily: 'Pretendard-SemiBold',
       fontSize: 20,
       color: '#FFFFFF',
     },
