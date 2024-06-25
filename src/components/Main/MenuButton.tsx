@@ -18,9 +18,7 @@ export default MenuButton;
 
 const styles = () => {
   return StyleSheet.create({
-    buttonContainer: {
-      marginTop: 30,
-    },
+    buttonContainer: {},
     button: {
       justifyContent: 'center',
       alignItems: 'center',
