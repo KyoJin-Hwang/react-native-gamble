@@ -1,9 +1,9 @@
-import {FingerRunLevelComponents} from '@/components/Finger/SwitchComponents';
+import Button from '@/components/Finger/Button';
+import Descruption from '@/components/Finger/Descruption';
+import FingerRunLevelComponents from '@/components/Finger/SwitchComponents';
 import SelectHand from '@/containers/Finger/SelectHand';
 import TimingCatch from '@/containers/Finger/Timer';
 import {HANDT} from '@/types/Finger/finger-type';
-import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useEffect, useRef, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 
@@ -12,7 +12,6 @@ const FingerPage = () => {
   const [isCount, setIsCount] = useState(0);
   const [isFinal, setIsFinal] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   useEffect(() => {
     TimingCatch({
@@ -40,16 +39,13 @@ const FingerPage = () => {
   return (
     <View
       style={styles.container}
+      onStartShouldSetResponder={() => true}
       onTouchStart={e =>
         SelectHand({event: e, setData: setHandArray, isFinal: isFinal})
       }
       onTouchEnd={e =>
         SelectHand({event: e, setData: setHandArray, isFinal: isFinal})
-      }
-      // onTouchMove={() => {
-      //   navigation.replace('MainPage', {state: 2});
-      // }}
-      onStartShouldSetResponder={() => true}>
+      }>
       <FingerRunLevelComponents
         isFinal={isFinal}
         handArray={handArray}
