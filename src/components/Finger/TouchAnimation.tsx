@@ -1,6 +1,13 @@
 import {AREA} from '@/types/Finger/finger-type';
 import React, {useEffect, useRef} from 'react';
-import {Animated, Easing, StyleSheet, View} from 'react-native';
+import {
+  Animated,
+  Easing,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 function TouchAnimation(props: AREA) {
   const rotateValue = useRef(new Animated.Value(0)).current;
@@ -43,37 +50,62 @@ function TouchAnimation(props: AREA) {
                 }),
               },
             ],
-            opacity: !touchEvent
+            opacity: touchEvent
               ? 1
               : rotateValue.interpolate({
                   inputRange: [0, 1],
-                  outputRange: [0.3, 1],
+                  outputRange: [0.5, 1],
                 }),
           },
-        ]}
-      />
+        ]}>
+        {!touchEvent ? null : (
+          <TouchableOpacity onPress={props.restartFunc}>
+            <Text style={styles.restartText}>재시작</Text>
+          </TouchableOpacity>
+        )}
+      </Animated.View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   circle: {
-    backgroundColor: 'black',
-    borderRadius: 80,
+    borderWidth: 8,
+    borderTopColor: '#0064FF',
+    borderRightColor: 'black',
+    borderBottomColor: '#0064FF',
+    borderLeftColor: 'black',
     width: 100,
     height: 100,
-    padding: 16,
-    borderWidth: 8,
-    borderStyle: 'solid',
-    borderEndColor: 'rgba(9, 130, 170, 1)',
-    borderBlockColor: 'rgba(40, 40, 40, 1)',
+    borderRadius: 50,
     position: 'relative',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  // circle: {
+  //   backgroundColor: 'yellow',
+  //   borderRadius: 80,
+  //   width: 100,
+  //   height: 100,
+  //   borderWidth: 8,
+  //   borderStyle: 'solid',
+  //   borderTopColor: 'red',
+  //   borderRightColor: 'blue',
+  //   position: 'relative',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  // },
+  restartText: {
+    fontSize: 22,
+    fontFamily: 'Pretendard-Bold',
+    color: 'black',
   },
   pointBackgroundActivate: {
     padding: 8,
     borderRadius: 100,
     borderStyle: 'solid',
-    borderColor: 'rgba(10, 130, 170, 0.5)',
+    borderColor: '#0064FF',
     borderWidth: 4,
     maxWidth: 140,
     position: 'absolute',

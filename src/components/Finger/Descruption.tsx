@@ -12,7 +12,8 @@ function Descruption() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    display: 'flex',
+    pointerEvents: 'none',
     alignItems: 'center',
   },
   description: {

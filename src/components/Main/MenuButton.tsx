@@ -23,8 +23,10 @@ const styles = () => {
       justifyContent: 'center',
       alignItems: 'center',
       height: 50,
-      borderRadius: 15,
+      borderRadius: 14,
       backgroundColor: '#0064FF',
+      borderWidth: 2,
+      borderColor: 'black',
     },
     text: {
       fontFamily: 'Pretendard-SemiBold',

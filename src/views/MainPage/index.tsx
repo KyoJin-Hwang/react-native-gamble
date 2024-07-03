@@ -3,7 +3,15 @@ import {MainButtonT} from '@/types/Main/main';
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useEffect, useRef, useState} from 'react';
-import {Animated, Easing, StyleSheet, Text, View} from 'react-native';
+import {
+  Animated,
+  Dimensions,
+  Easing,
+  Linking,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 const BUTTON_TYPE: MainButtonT[] = [
   {idx: 1, title: '핑거 초이스 👇', page: 'Finger'},
@@ -19,11 +27,10 @@ function MainPage() {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const headerIconRef = useRef(new Animated.Value(0)).current;
   const [currentEmoji, setCurrentEmoji] = useState(0);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentEmoji(Math.floor(Math.random() * EMOJIS.length));
-    }, 1500); // 5초마다 이모지 변경
+    }, 1500);
 
     return () => clearInterval(interval);
   }, []);
@@ -32,7 +39,9 @@ function MainPage() {
     inputRange: [0, 1],
     outputRange: [0, -30],
   });
-
+  const openWebpage = (url: string) => {
+    Linking.openURL(url).catch(err => console.error("Couldn't load page", err));
+  };
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
@@ -54,14 +63,8 @@ function MainPage() {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'row',
-          gap: 20,
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: 74,
-        }}>
+      {/* 헤더 */}
+      <View style={styles.textHeaderContainer}>
         <Animated.Text style={styles.textHeader}>내기의 기운</Animated.Text>
         <Animated.Text
           style={[
@@ -71,6 +74,7 @@ function MainPage() {
           {EMOJIS[currentEmoji]}
         </Animated.Text>
       </View>
+      {/* 메뉴 */}
       <View style={styles.menuContainer}>
         {BUTTON_TYPE.map(item => (
           <MenuButton
@@ -80,11 +84,20 @@ function MainPage() {
           />
         ))}
       </View>
+      {/* 푸터 */}
       <View style={styles.textFooterContainer}>
-        <Text style={styles.textFooter}>GitHub</Text>
+        <Text style={styles.textFooterTitle}>💼 GitHub</Text>
         <View style={styles.footerBox}>
-          <Text style={styles.textFooter}>Owen</Text>
-          <Text style={styles.textFooter}>kokong1231</Text>
+          <Text
+            style={styles.textFooterSub}
+            onPress={() => openWebpage('https://github.com/KyoJin-Hwang')}>
+            🐭Owen
+          </Text>
+          <Text
+            style={styles.textFooterSub}
+            onPress={() => openWebpage('https://github.com/kokong1231')}>
+            🐱kokong1231
+          </Text>
         </View>
       </View>
     </View>
@@ -92,10 +105,21 @@ function MainPage() {
 }
 
 const styles = StyleSheet.create({
+  // wrap
   container: {
     flex: 1,
+    display: 'flex',
     paddingHorizontal: 16,
+    paddingVertical: 40,
+    justifyContent: 'space-between',
     backgroundColor: 'white',
+  },
+
+  // 헤더
+  textHeaderContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 20,
   },
   textHeader: {
     color: 'black',
@@ -103,28 +127,39 @@ const styles = StyleSheet.create({
     fontSize: 46,
     fontFamily: 'Pretendard-Bold',
   },
+
+  // 메뉴
+  menuContainer: {display: 'flex', gap: 30},
+
+  // 푸터
   textFooterContainer: {
-    flex: 1,
-    position: 'absolute',
-    left: 20,
-    bottom: 40,
-    gap: 10,
-  },
-  menuContainer: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginTop: 50,
-    marginBottom: 150,
-  },
-  textFooter: {
-    color: 'black',
-    fontSize: 24,
+    backgroundColor: '#0064FF',
+    padding: 16,
+    borderRadius: 14,
+    gap: 20,
+    borderWidth: 2,
+    borderColor: 'black',
   },
   footerBox: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  textFooterTitle: {
+    color: 'white',
+    fontSize: 24,
+    textAlign: 'center',
+    fontFamily: 'Pretendard-Medium',
+  },
+  textFooterSub: {
+    color: 'white',
+    fontSize: 24,
+    textAlign: 'center',
+    fontFamily: 'Pretendard-Regular',
+    borderWidth: 1,
+    borderColor: 'white',
+    padding: 8,
+    borderRadius: 4,
   },
 });
 

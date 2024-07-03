@@ -8,4 +8,5 @@ export interface AREA {
   x: number;
   y: number;
   final: boolean;
+  restartFunc: () => void;
 }
