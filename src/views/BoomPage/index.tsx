@@ -11,6 +11,8 @@ const BoomPage = () => {
   const [gameState, setGameState] = React.useState(0);
   const [boomCount, setBoomCount] = React.useState(
     Math.floor(Math.random() * 5) + 11,
+    // 최대 16초를 바란것인지?
+    // Math.floor(Math.random() * 15),
   );
   const [timer, setTimer] = React.useState(0);
 
