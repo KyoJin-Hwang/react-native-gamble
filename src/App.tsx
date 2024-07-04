@@ -6,6 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MainPage from './views/MainPage';
 import BoomPage from './views/BoomPage';
+import NewPage from './views/NewPage';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator();
@@ -18,6 +19,7 @@ function App(): React.JSX.Element {
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="Finger" component={FingerPage} />
           <Stack.Screen name="Boom" component={BoomPage} />
+          <Stack.Screen name="New" component={NewPage} />
           <Stack.Screen name="MainPage" component={MainPage} />
         </Stack.Navigator>
       </NavigationContainer>

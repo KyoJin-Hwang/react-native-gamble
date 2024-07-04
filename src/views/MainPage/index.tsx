@@ -16,7 +16,7 @@ import {
 const BUTTON_TYPE: MainButtonT[] = [
   {idx: 1, title: '핑거 초이스 👇', page: 'Finger'},
   {idx: 2, title: '폭탄 돌리기 💣', page: 'Boom'},
-  {idx: 3, title: '개발 준비중 🚥'},
+  {idx: 3, title: '개발 준비중 🚥', page: 'New'},
   {idx: 4, title: '개발 준비중 🚥'},
   {idx: 5, title: '개발 준비중 🚥'},
 ];
