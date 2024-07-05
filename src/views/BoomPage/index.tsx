@@ -10,9 +10,7 @@ const BoomPage = () => {
   const [boomGet, setBoomGet] = React.useState(0);
   const [gameState, setGameState] = React.useState(0);
   const [boomCount, setBoomCount] = React.useState(
-    Math.floor(Math.random() * 5) + 11,
-    // 최대 16초를 바란것인지?
-    // Math.floor(Math.random() * 15),
+    Math.floor(Math.random() * 5) + 25,
   );
   const [timer, setTimer] = React.useState(0);
 
@@ -50,7 +48,7 @@ const BoomPage = () => {
         boomGet={boomGet}
       />
       <MoveBoom boomGet={boomGet} position="top" gameState={gameState} />
-      <CenterTitle boomGet={boomGet} gameState={gameState} />
+      <CenterTitle boomGet={boomGet} gameState={gameState} timer={timer} />
       <EndGame
         gameState={gameState}
         boomGet={boomGet}

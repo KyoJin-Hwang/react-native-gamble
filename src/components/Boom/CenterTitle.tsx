@@ -5,6 +5,7 @@ import BoomIcon from './BoomIcon';
 interface PROPS {
   boomGet: number;
   gameState: number;
+  timer: number;
 }
 
 const CenterTitle = (props: PROPS) => {
@@ -12,8 +13,10 @@ const CenterTitle = (props: PROPS) => {
     <View style={styles.container}>
       {props.boomGet === 0 ? (
         <View style={styles.gameTable}>
-          <BoomIcon gameState={props.gameState} />
-          <Text>버튼을 누르면 게임이 시작됩니다!</Text>
+          <BoomIcon gameState={props.gameState} timer={props.timer} />
+          <Text style={{color: 'black', fontFamily: 'Pretendard-Bold'}}>
+            버튼을 누르면 게임이 시작됩니다!
+          </Text>
         </View>
       ) : (
         <View style={styles.gameTable} />
