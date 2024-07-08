@@ -5,7 +5,6 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import React, {useEffect, useRef, useState} from 'react';
 import {
   Animated,
-  Dimensions,
   Easing,
   Linking,
   StyleSheet,
