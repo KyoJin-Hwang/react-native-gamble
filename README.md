@@ -1,3 +1,8 @@
+# 내기의기운
+
+## Tech Stack
+- react-native
+
 ## File Structure
 
 - **🗂 assets:** 이미지, 폰트, 에셋
