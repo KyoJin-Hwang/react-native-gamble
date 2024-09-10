@@ -6,6 +6,8 @@ interface PROPS {
   boomGet: number;
   gameState: number;
   position: string;
+  boomCounter: number;
+  startCount: number;
 }
 
 const MoveBoom = (props: PROPS) => {
@@ -23,7 +25,11 @@ const TopBoom = (props: PROPS) => {
       <View>
         {props.boomGet === 1 ? (
           <View style={styles.boomTop}>
-            <BoomIcon gameState={props.gameState} />
+            <BoomIcon
+              gameState={props.gameState}
+              boomCount={props.boomCounter}
+              startCount={props.startCount}
+            />
           </View>
         ) : (
           <View />
@@ -41,7 +47,11 @@ const BottomBoom = (props: PROPS) => {
       <View>
         {props.boomGet === 2 ? (
           <View style={styles.boomBottom}>
-            <BoomIcon gameState={props.gameState} />
+            <BoomIcon
+              gameState={props.gameState}
+              boomCount={props.boomCounter}
+              startCount={props.startCount}
+            />
           </View>
         ) : (
           <View />

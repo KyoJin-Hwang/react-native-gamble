@@ -4,6 +4,7 @@ import React from 'react';
 interface PROPS {
   boomGet: number;
   gameState: number;
+  setBoomGet: React.Dispatch<React.SetStateAction<number>>;
   setGameState: React.Dispatch<React.SetStateAction<number>>;
   setBoomCount: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -27,15 +28,15 @@ const EndGame = (props: PROPS) => {
     </View>
   );
 };
-
 const Restart = (props: PROPS) => {
   return (
     <TouchableOpacity
       style={styles.buttonContainer}
       onPress={() => {
         if (props.gameState === 2) {
+          props.setBoomGet(0);
           props.setGameState(0);
-          props.setBoomCount(Math.floor(Math.random() * 5) + 11);
+          props.setBoomCount(Math.floor(Math.random() * 5) + 25);
         }
       }}>
       <Text style={styles.buttonText}>다시하기</Text>

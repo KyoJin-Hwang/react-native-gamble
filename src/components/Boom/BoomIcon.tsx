@@ -1,30 +1,40 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {StyleSheet, Text, View, Animated} from 'react-native';
 
 interface PROPS {
   gameState: number;
-  timer: number;
+  boomCount: number;
+  startCount: number;
 }
 
 const BoomIcon = (props: PROPS) => {
   const shadowColorAnim = useRef(new Animated.Value(0)).current;
+  const percent80 = Math.floor(props.startCount * 0.2);
+  const percent40 = Math.floor(props.startCount * 0.6);
 
+  console.log('percent40 : ' + percent40);
+  console.log('percent80 : ' + percent80);
   useEffect(() => {
-    if (props.timer < 1) {
+    if (props.boomCount > percent40) {
       Animated.timing(shadowColorAnim, {
-        toValue: 2, // 최종 값을 2로 설정하여 3단계 애니메이션을 만듦
-        duration: 4000,
+        toValue: 0,
+        duration: 2000,
+        useNativeDriver: false,
+      }).start();
+    } else if (props.boomCount > percent80 && props.boomCount < percent40) {
+      Animated.timing(shadowColorAnim, {
+        toValue: 1,
+        duration: 2000,
         useNativeDriver: false,
       }).start();
     } else {
       Animated.timing(shadowColorAnim, {
-        toValue: 0,
-        duration: 4000,
+        toValue: 2,
+        duration: 2000,
         useNativeDriver: false,
       }).start();
     }
-  }, [props.timer]);
-
+  }, [props.boomCount]);
   const shadowColorInterpolation = shadowColorAnim.interpolate({
     inputRange: [0, 1, 2],
     outputRange: ['rgb(255, 255, 0)', 'rgb(255, 165, 0)', 'rgb(255, 0, 0)'],
@@ -34,12 +44,15 @@ const BoomIcon = (props: PROPS) => {
     <View>
       {props.gameState === 2 ? (
         <Animated.Text
-          style={[styles.icon, {textShadowColor: shadowColorInterpolation}]}>
+          style={[styles.end, {textShadowColor: shadowColorInterpolation}]}>
           😭
         </Animated.Text>
       ) : (
         <Animated.Text
-          style={[styles.icon, {textShadowColor: shadowColorInterpolation}]}>
+          style={[
+            styles.gameIcon,
+            {textShadowColor: shadowColorInterpolation},
+          ]}>
           💣
         </Animated.Text>
       )}
@@ -48,12 +61,17 @@ const BoomIcon = (props: PROPS) => {
 };
 
 const styles = StyleSheet.create({
-  icon: {
+  gameIcon: {
     fontSize: 80,
     color: 'black',
-    padding: 16,
-    textShadowOffset: {width: 0, height: 20},
-    textShadowRadius: 5,
+    padding: 40,
+    textShadowOffset: {width: 0, height: 15},
+    textShadowRadius: 1,
+  },
+  end: {
+    fontSize: 80,
+    color: 'black',
+    padding: 40,
   },
 });
 
