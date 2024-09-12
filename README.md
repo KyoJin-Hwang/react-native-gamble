@@ -2,6 +2,7 @@
 
 ## Tech Stack
 - react-native
+- yarn
 
 ## File Structure
 
