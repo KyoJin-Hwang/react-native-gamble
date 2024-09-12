@@ -11,11 +11,15 @@ interface PROPS {
 
 const TopUser = (props: PROPS) => {
   return (
-    <View>
+    <View style={{flex: 1}}>
       <TouchableOpacity
         style={styles.buttonTop}
         onPress={() => {
-          if (props.gameState !== 2 && props.timer === 0) {
+          if (
+            (props.boomGet === 0 || props.boomGet === 1) &&
+            props.gameState !== 2 &&
+            props.timer === 0
+          ) {
             props.setBoomGet(2);
             props.setTimer(2);
           }

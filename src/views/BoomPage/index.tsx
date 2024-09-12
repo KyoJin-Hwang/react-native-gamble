@@ -7,21 +7,26 @@ import MoveBoom from '@/components/Boom/MoveBoom';
 import EndGame from '@/components/Boom/EndGame';
 
 const BoomPage = () => {
+  // 0이면 가운데 1이면 상단 2이면 하단
   const [boomGet, setBoomGet] = React.useState(0);
+  // 0이면 초기화 1이면 시작 2이면 종료
   const [gameState, setGameState] = React.useState(0);
-  const [boomCount, setBoomCount] = React.useState(
-    Math.floor(Math.random() * 5) + 11,
-    // 최대 16초를 바란것인지?
-    // Math.floor(Math.random() * 15),
+  const [startCount, setStartCount] = React.useState(
+    Math.floor(Math.random() * 5) + 25,
   );
+  const [boomCount, setBoomCount] = React.useState(startCount);
+
+  // 누를 수 있는 타이머 1초 최대
   const [timer, setTimer] = React.useState(0);
 
+  // 게임이 초기화되고, boomCount 가 바뀔때 게임을 다시시작 Effect
   React.useEffect(() => {
-    if (gameState === 0) {
+    if (gameState === 0 && boomGet !== 0) {
       setGameState(1);
     }
   }, [boomGet, boomCount]);
-
+  console.log(timer);
+  // 유저 timer 줄이기 Effect
   React.useEffect(() => {
     if (timer >= 1) {
       setTimeout(() => {
@@ -30,6 +35,7 @@ const BoomPage = () => {
     }
   }, [timer]);
 
+  // BoomCount 줄이는 Effect
   React.useEffect(() => {
     if (boomCount > 0 && gameState === 1) {
       setTimeout(() => {
@@ -37,9 +43,11 @@ const BoomPage = () => {
       }, 1000);
     } else if (boomCount === 0 && gameState === 1) {
       setGameState(2);
+      console.log('종료--------------------------------');
     }
   }, [boomCount, gameState]);
 
+  console.log('boomCounter : ' + boomCount);
   return (
     <View style={styles.container}>
       <TopUser
@@ -49,15 +57,33 @@ const BoomPage = () => {
         timer={timer}
         boomGet={boomGet}
       />
-      <MoveBoom boomGet={boomGet} position="top" gameState={gameState} />
-      <CenterTitle boomGet={boomGet} gameState={gameState} />
+      <MoveBoom
+        boomGet={boomGet}
+        position="top"
+        gameState={gameState}
+        boomCounter={boomCount}
+        startCount={startCount}
+      />
+      <CenterTitle
+        boomGet={boomGet}
+        gameState={gameState}
+        boomCount={boomCount}
+        startCount={startCount}
+      />
       <EndGame
         gameState={gameState}
         boomGet={boomGet}
+        setBoomGet={setBoomGet}
         setGameState={setGameState}
         setBoomCount={setBoomCount}
       />
-      <MoveBoom boomGet={boomGet} position="bottom" gameState={gameState} />
+      <MoveBoom
+        boomGet={boomGet}
+        position="bottom"
+        gameState={gameState}
+        boomCounter={boomCount}
+        startCount={startCount}
+      />
       <BottomUser
         setBoomGet={setBoomGet}
         setTimer={setTimer}
@@ -73,7 +99,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     display: 'flex',
-    justifyContent: 'space-between',
     backgroundColor: 'white',
   },
 });
